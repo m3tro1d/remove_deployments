@@ -85,7 +85,7 @@ class CustomArgumentParser(argparse.ArgumentParser):
             Make sure it has 'repo_deployments' authorized.
 
         Options:
-          -h,  --help     show help
+          -h,  --help   show help
           -a,  --all    delete ALL deployments, including the active ones (def: {self.get_default("all")})
 
         For more information visit:
