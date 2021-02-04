@@ -97,11 +97,25 @@ class CustomArgumentParser(argparse.ArgumentParser):
 # Functions
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
+def valid_url(string):
+    """Returns a tuple of (owner, repo) from the URL string"""
+    if "/" in string:
+        owner, repo = string.split("/")
+    else:
+        error = f"Invalid URL: {string}"
+        raise argparse.ArgumentTypeError(error)
+    return (owner, repo)
+
+
 def parse_args():
     """Process input arguments"""
     parser = CustomArgumentParser(usage="%(prog)s [OPTIONS] URL TOKEN")
 
     parser.add_argument("-a", "--all", action="store_true")
+
+    parser.add_argument("url", type=valid_url)
+
+    parser.add_argument("token")
 
     return parser.parse_args()
 
