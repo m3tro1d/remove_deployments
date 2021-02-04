@@ -151,13 +151,14 @@ def main():
 
     # Delete the deplyoments
     for deploy_id in all_ids:
-        # Change status to inactive
-        print(f"POST {url()}/{deploy_id}/statuses state=inactive")
-        requests.post(
-            url(f"/{deploy_id}/statuses"),
-            {"state": "inactive"},
-            headers=headers
-        )
+        # Set the status to 'inactive', if we want to delete everything
+        if args.all:
+            print(f"POST {url()}/{deploy_id}/statuses state=inactive")
+            requests.post(
+                url(f"/{deploy_id}/statuses"),
+                {"state": "inactive"},
+                headers=headers
+            )
         # Delete
         print(f"DELETE {url()}/{deploy_id}")
         requests.delete(
