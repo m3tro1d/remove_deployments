@@ -64,6 +64,8 @@ from textwrap import dedent
 import argparse
 import sys
 
+import requests
+
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Classes
@@ -130,7 +132,38 @@ def parse_args():
 
 def main():
     """Main function"""
-    pass
+    # Requests headers
+    headers={
+      "Authorization": f"token {args.token}",
+      "Accept": "application/vnd.github.ant-man-preview+json"
+    }
+    # Get the URL formatting function
+    url = url_formatter(*args.url)
+
+    # Get all deployments
+    response = requests.get(url(), headers=headers)
+    response.raise_for_status()
+    all_ids = [ deploy["id"] for deploy in response.json() ]
+    if not all_ids:
+        print("No deployments found.")
+        sys.exit(0)
+    print(f"Got deployments with IDs: {all_ids}")
+
+    # Delete the deplyoments
+    for deploy_id in all_ids:
+        # Change status to inactive
+        print(f"POST {url()}/{deploy_id}/statuses state=inactive")
+        requests.post(
+            url(f"/{deploy_id}/statuses"),
+            {"state": "inactive"},
+            headers=headers
+        )
+        # Delete
+        print(f"DELETE {url()}/{deploy_id}")
+        requests.delete(
+            url(f"/{deploy_id}"),
+            headers=headers
+        )
 
 
 # Entry point
