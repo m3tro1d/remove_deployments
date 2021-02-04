@@ -33,8 +33,8 @@ class CustomArgumentParser(argparse.ArgumentParser):
           URL of a repository in the format of owner/repo
 
         TOKEN
-            Your GitHub personal access token.
-            Make sure it has 'repo_deployments' authorized.
+          Your GitHub personal access token.
+          Make sure it has 'repo_deployments' authorized.
 
         Options:
           -h,  --help   show help
