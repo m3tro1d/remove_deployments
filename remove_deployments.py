@@ -86,6 +86,7 @@ class CustomArgumentParser(argparse.ArgumentParser):
 
         Options:
           -h,  --help     show help
+          -a,  --all    delete ALL deployments, including the active ones (def: {self.get_default("all")})
 
         For more information visit:
         https://github.com/m3tro1d/remove_deployments
@@ -99,6 +100,9 @@ class CustomArgumentParser(argparse.ArgumentParser):
 def parse_args():
     """Process input arguments"""
     parser = CustomArgumentParser(usage="%(prog)s [OPTIONS] URL TOKEN")
+
+    parser.add_argument("-a", "--all", action="store_true")
+
     return parser.parse_args()
 
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
