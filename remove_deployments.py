@@ -99,7 +99,7 @@ class CustomArgumentParser(argparse.ArgumentParser):
 
 def url_formatter(owner, repo):
     """Generates a URL pattern function"""
-    return (lambda end: f'https://api.github.com/repos/{owner}/{repo}/deployments{end}')
+    return (lambda end="": f'https://api.github.com/repos/{owner}/{repo}/deployments{end}')
 
 
 def valid_url(string):
