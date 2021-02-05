@@ -4,7 +4,6 @@ import sys
 
 import requests
 
-
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 # Classes
 # ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -51,7 +50,7 @@ class CustomArgumentParser(argparse.ArgumentParser):
 
 def url_formatter(owner, repo):
     """Generates a URL pattern function"""
-    return lambda end="": f'https://api.github.com/repos/{owner}/{repo}/deployments{end}'
+    return lambda end="": f"https://api.github.com/repos/{owner}/{repo}/deployments{end}"
 
 
 def valid_url(string):
@@ -93,7 +92,7 @@ def main():
     # Get all deployments
     response = requests.get(url(), headers=headers)
     response.raise_for_status()
-    all_ids = [ deploy["id"] for deploy in response.json() ]
+    all_ids = [deploy["id"] for deploy in response.json()]
     if not all_ids:
         print("No deployments found.")
         sys.exit(0)
